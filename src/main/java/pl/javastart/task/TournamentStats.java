@@ -15,20 +15,12 @@ public class TournamentStats {
         // tutaj dodaj swoje rozwiązanie
         // użyj przekazanego scannera do wczytywania wartości
         getPlayers(scanner);
-        Comparator<Player> comparator = chooseSortMethod(scanner);
-
-        Collections.sort(players, comparator);
-        System.out.println("Sortować rosnąco czy malejąco? (1 - rosnąco, 2 - malejąco)");
-        int choice = scanner.nextInt();
-        if (choice == 2) {
-            Collections.reverse(players);
-        }
+        chooseSortMethod(scanner);
         save();
         System.out.println("Dane posortowano i zapisano do pliku stats.csv");
-
     }
 
-    private Comparator<Player> chooseSortMethod(Scanner scanner) {
+    private void chooseSortMethod(Scanner scanner) {
         System.out.printf("Po jakim parametrze posortować? (%s - imię, %s - nazwisko, %s - wynik) \n", FIRST_NAME,
                 LAST_NAME, SCORE);
         String choice = scanner.nextLine();
@@ -45,7 +37,13 @@ public class TournamentStats {
                 }
             }
         } while (!stopAsking);
-        return comparator;
+        Collections.sort(players, comparator);
+
+        System.out.println("Sortować rosnąco czy malejąco? (1 - rosnąco, 2 - malejąco)");
+        int sortChoice = scanner.nextInt();
+        if (sortChoice == 2) {
+            Collections.reverse(players);
+        }
     }
 
     private void getPlayers(Scanner scanner) {
